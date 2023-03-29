@@ -69,12 +69,12 @@ def getClues(guess, secretNum):
     for i in range(len(guess)):
         if guess[i] == secretNum[i]:
             #A number in the correct place
-            clues.append('OMG')
+            clues.append('OMG - One digit is correct and is in the correct position.')
         elif guess[i] in secretNum:
             #A number is in the INCORRECT Place
-            clues.append("LOL")
+            clues.append("LOL - One digit is correct but in the wrong position.")
     if len(clues) == 0:
-        return "WTF" # No correct numbers at all, womp womp womp
+        return "WTF - NO digits are correct! HAHA" # No correct numbers at all, womp womp womp
     else:
         clues.sort
         return " ".join(clues)
