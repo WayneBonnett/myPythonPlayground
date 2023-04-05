@@ -1,7 +1,7 @@
 # blackjack
 
 #Rules of this game:
-    * Try to reach a score as close to 21 without going over.
+    * Try to reach a score as close to 21 without going over. You start with $10K
           
 #Card point values
     * Kings  10 points
