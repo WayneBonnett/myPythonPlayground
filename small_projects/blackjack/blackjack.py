@@ -39,7 +39,49 @@ def main():
     money = 10_000
     
     print(money)
+    
+    while True: #Main program loop
+        #Check to verify the player has money to play the game.
+        if money <= 0:
+            print("You have no money, sorry, but you can't play.")
+            print("Maybe play something that doesn't require money.")
+            print("Thanks for playing, try again soon.")
+            sys.exit #Bye bye
+            
+        #Player can bet, horray!!!
+        print("You have: " + money + " to play with, let's GO!")
 
 
+def getBet(maxBet):
+    #cool code goes here
+    
+    return #this is not the cool code
+    
+def getDeck():
+    #more cool code goes here
+    
+    return #this is not the cool code
+    
+def displayHands(playerHand, dealerHand, showDealerhand):
+    #really cool code goes here.
+    
+    return #this is not the cool code
+    
+def getHandValue(cards):
+    #cool code
+    
+    return #not cool code
+
+def displayCards(cards):
+    #cool code
+    
+    return #not cool code
+
+def getMove(playerHand, money):
+    #cool code
+    
+    return #not cool code
+
+# RUN THE GAME!
 if __name__ == '__main__':
     main()
