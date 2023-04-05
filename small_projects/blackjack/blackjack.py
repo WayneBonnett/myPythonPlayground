@@ -50,22 +50,122 @@ def main():
             
         #Player can bet, horray!!!
         print("You have: " + money + " to play with, let's GO!")
+        bet = getBet(money)
+        
+        #Get four cards from the deck, two for player, two for dealer.
+        deck = getDeck()
+        dealerHand = [deck.pop(), deck.pop()]
+        playerhand = [deck.pop(), deck.pop()]
+        
+        #Player interactions
+        print("Bet:", bet)
+        while True: #Keep looping until the player stands or goes bust (Over 21)
+            displayHands(playerhand, dealerHand, False)
+            print()
+            
+            #Check to see if the player cards total > 21
+            if getHandValue(playerhand) > 21:
+                break
+            
+            #Get player's move, H, S, or D
+            move = getMove(playerhand, money - bet)
+            
+            #Handle player's actions
+            if move == 'D':
+                #Double Down
+                additionalBet = getBet(min(bet,(money - bet)))
+                bet += additionalBet
+                print("Bet increased to [].".format(bet))
+                print("Bet: ", bet)
+                
+            if move in('D','H'):
+                #Hit or double down gets another card
+                newCard = deck.pop()
+                rank, suit = newCard
+                print('You drew a {} of {}.'.format(rank, suit))
+                playerhand.append(newCard)
 
-
+                if getHandValue(playerhand) > 21:
+                    #BUST! HAHAHA
+                    continue
+            
+            if move in ('S', 'D'):
+                #Stand or double stops the players turn.
+                break
+            
+        #Handle dealer actions
+        if getHandValue(playerhand) <= 21:
+            while getHandValue(dealerHand) < 17:
+                #Dealer hits
+                print("Dealer hits for another card!")
+                dealerHand.append(deck.pop())
+                displayHands(playerhand, dealerHand, False)
+                
+                if getHandValue(dealerHand) > 21:
+                    break #Dealer buster, whew, thank goodness!
+                input("Press any key to continue. . .")
+                print("\n\n")
+                
+            #Show final hands, player and dealer:
+            displayHands(playerhand, dealerHand, True)
+            
+            playerValue = getHandValue(playerhand)
+            dealerValue = getHandValue(dealerHand)
+            
+            #Win lose or tie?
+            
+            if dealerValue > 21:
+                print("Dealer BUSTED! You win ${}!".format(bet))
+                money += bet
+            elif (playerValue > 21) or (playerValue < dealerValue):
+                print("YOU LOST! LOL!")
+                money -= bet
+            elif playerValue > dealerValue:
+                print("You won ${}!".format(bet))
+                money += bet
+            elif playerValue == dealerValue:
+                print("It's a tie, no money gained or lost, whew.")
+            
+            input("Press Enter to continue. . .")
+            print("\n\n")
+                
 def getBet(maxBet):
-    #cool code goes here
-    
-    return #this is not the cool code
+    #How much will the player bet?
+    while True:
+            print("How much do you want to bet? (1-{}, or QUIT)".format(maxBet))
+            bet = input("> ").upper().strip()
+            if bet == "QUIT":
+                print("Thanks for playing, please try again someday.")
+                sys.exit()
+                
+            if not bet.isdecimal(): #Not a number? Try again...
+                continue
+            
+            bet = int(bet)
+            if 1 <= bet <= maxBet:
+                return bet
     
 def getDeck():
-    #more cool code goes here
-    
-    return #this is not the cool code
+
+    """Return a list of (rank, suit) tuples for all 52 cards."""
+    deck = []
+    for suit in (HEARTS, DIAMONDS, SPADES, CLUBS):
+        for rank in range(2, 11):
+            deck.append((str(rank), suit)) # Add the numbered cards.
+        for rank in ('J', 'Q', 'K', 'A'):
+            deck.append((rank, suit)) # Add the face and ace cards.
+    random.shuffle(deck)
+    return deck
     
 def displayHands(playerHand, dealerHand, showDealerhand):
     #really cool code goes here.
     
     return #this is not the cool code
+
+def getHandValue(cards):
+    #cool code
+    
+    return #not cool code
     
 def getHandValue(cards):
     #cool code
