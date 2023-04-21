@@ -15,6 +15,7 @@ BACKSIDE = 'backside' # the back of the cards
 
 money = 10_000
 
+
 def main():
     print('''Blackjack
           
