@@ -1,29 +1,31 @@
-import datetime, random
+import datetime
+import random
 
 """Explore the surprising probabilities of the "Birthday Paradox".
    More info at https://en.wikipedia.org/wiki/Birthday_problem"""
-   
+
 
 def getBirthdays(numberOfBirthdays):
-    #Retudns a list of random date objects for birthdays.
+    # Retudns a list of random date objects for birthdays.
     birthdays = []
     for i in range(numberOfBirthdays):
-        startOfYear = datetime.date(2001,1,1)
-        
-        randomNumberOfDays = datetime.timedelta(random.randint(0,364))
+        startOfYear = datetime.date(2001, 1, 1)
+
+        randomNumberOfDays = datetime.timedelta(random.randint(0, 364))
         birthday = startOfYear + randomNumberOfDays
         birthdays.append(birthday)
     return birthdays
 
+
 def getMatch(birthdays):
     if len(birthdays) == len(set(birthdays)):
         return None
-    
+
     for a, birthdayA in enumerate(birthdays):
-        for b, birthdayB in enumerate(birthdays[a+1 :]):
+        for b, birthdayB in enumerate(birthdays[a+1:]):
             if birthdayA == birthdayB:
                 return birthdayA
-            
+
 
 # Display the intro:
 print('''The Birthday Paradox shows us that in a group of N people, the odds
@@ -36,12 +38,12 @@ simulations) to explore this concept.
 # Set up a tuple of month names in order:
 MONTHS = ('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
           'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec')
-while True: # Keep asking until the user enters a valid amount.
+while True:  # Keep asking until the user enters a valid amount.
     print('How many birthdays shall I generate? (Max 100)')
     response = input('> ')
     if response.isdecimal() and (0 < int(response) <= 100):
         numBDays = int(response)
-        break # User has entered a valid amount.
+        break  # User has entered a valid amount.
 print()
 
 # Generate and display the birthdays:
@@ -75,7 +77,7 @@ print('Generating', numBDays, 'random birthdays 100,000 times...')
 input('Press Enter to begin...')
 print('Let\'s run another 100,000 simulations.')
 
-simMatch = 0 # How many simulations had matching birthdays in them.
+simMatch = 0  # How many simulations had matching birthdays in them.
 for i in range(100_000):
     # Report on the progress every 10,000 simulations:
     if i % 10_000 == 0:

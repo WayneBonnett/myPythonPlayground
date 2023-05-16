@@ -1,5 +1,5 @@
 from tkinter import *
-  
+
 top = Tk()
 Lb = Listbox(top)
 
