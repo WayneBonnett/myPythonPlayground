@@ -8,4 +8,4 @@ driver.maximize_window()
 # wait a while, and then go to another page
 time.sleep(5)
 driver.get('https://cnbc.com')
-time.sleep(5)
+time.sleep(5) 
