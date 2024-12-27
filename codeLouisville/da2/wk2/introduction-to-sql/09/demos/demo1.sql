@@ -1,1 +1,0 @@
-CREATE DATABASE contacts_V2;
