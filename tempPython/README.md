@@ -2,7 +2,7 @@
 
 This is my temporary working directory, a testing playground if you will.
 
-In the heart of bytes and codes I roam,<br>
+**In the heart of bytes and codes I roam,**<br>
 A Python directory I call home. <br>
 Nestled in the digital abyss, <br>
 Where learning and testing find their bliss.<br>
