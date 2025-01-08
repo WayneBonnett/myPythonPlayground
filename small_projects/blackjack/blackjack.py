@@ -13,9 +13,6 @@ SPADES = chr(9824)  # ♠
 CLUBS = chr(9827)  # ♣
 BACKSIDE = 'backside'  # the back of the cards
 
-money = 10_000
-
-
 def main():
     print('''Blackjack
           
@@ -35,9 +32,9 @@ def main():
             * On the first play you can (D)ouble down to double your bet but you must (H)it one more time before (S)tanding.
             * The dealer stops betting after hitting 17 or above. If there is a tie, the bet is returned to the player.
           
-#Good luck!
-          ''')
-    money = 10_000
+            #Good luck!
+        ''')
+    money = 10000000
 
     print(money)
 
@@ -50,7 +47,7 @@ def main():
             sys.exit  # Bye bye
 
         # Player can bet, horray!!!
-        print("You have: " + money + " to play with, let's GO!")
+        print("You have: " + str(money) + " to play with, let's GO!")
         bet = getBet(money)
 
         # Get four cards from the deck, two for player, two for dealer.
@@ -163,32 +160,84 @@ def getDeck():
 
 def displayHands(playerHand, dealerHand, showDealerhand):
     # really cool code goes here.
+    
+    print()
+    if showDealerhand:
+        print('DEALER:', getHandValue(dealerHand))
+        displayCards(dealerHand)
+    else:
+        print('DEALER: ???')
+        # Hide the dealer's first card:
+        displayCards([BACKSIDE] + dealerHand[1:])
 
-    return  # this is not the cool code
-
+        # Show the player's cards:
+        print('PLAYER:', getHandValue(playerHand))
+        displayCards(playerHand)    
 
 def getHandValue(cards):
-    # cool code
+    value = 0
+    numberOfAces = 0
 
-    return  # not cool code
+    # Add the value for the non-ace cards:
+    for card in cards:
+        rank = card[0] # card is a tuple like (rank, suit)
+        if rank == 'A':
+            numberOfAces += 1
+        elif rank in ('K', 'Q', 'J'): # Face cards are worth 10 points.
+            value += 10
+        else:
+            value += int(rank) # Numbered cards are worth their number.
 
+    # Add the value for the aces:
+    value += numberOfAces # Add 1 per ace.
+    for i in range(numberOfAces):
+        # If another 10 can be added with busting, do so:
+        if value + 10 <= 21:
+            value += 10
 
-def getHandValue(cards):
-    # cool code
-
-    return  # not cool code
-
+    return value
 
 def displayCards(cards):
-    # cool code
+    """Display all the cards in the cards list."""
+    rows = ['', '', '', '', ''] # The text to display on each row.
 
-    return  # not cool code
+    for i, card in enumerate(cards):
+        rows[0] += ' ___ ' # Print the top line of the card.
+        if card == BACKSIDE:
+            # Print a card's back:
+            rows[1] += '|## | '
+            rows[2] += '|###| '
+            rows[3] += '|_##| '
+        else:
+            # Print the card's front:
+            rank, suit = card # The card is a tuple data structure.
+            rows[1] += '|{} | '.format(rank.ljust(2))
+            rows[2] += '| {} | '.format(suit)
+            rows[3] += '|_{}| '.format(rank.rjust(2, '_'))
 
+            # Print each row on the screen:
+            for row in rows:
+                print(row)
 
 def getMove(playerHand, money):
-    # cool code
+    """Asks the player for their move, and returns 'H' for hit, 'S' for
+    stand, and 'D' for double down."""
+    while True: # Keep looping until the player enters a correct move.
+        # Determine what moves the player can make:
+        moves = ['(H)it', '(S)tand']
 
-    return  # not cool code
+        # The player can double down on their first move, which we can
+        # tell because they'll have exactly two cards:
+        if len(playerHand) == 2 and money > 0:
+            moves.append('(D)ouble down')
+
+            # Get the player's move:
+            movePrompt = ', '.join(moves) + '> '
+            move = input(movePrompt).upper()
+        if move in ('H', 'S'):
+            return move # Player has entered a valid move.
+        if move == 'D' and '(D)ouble down' in moves:
+            return move # Player has entered a valid move.
 
 
 # RUN THE GAME!
