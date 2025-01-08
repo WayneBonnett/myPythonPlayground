@@ -1,6 +1,6 @@
 # myPythonPlayground
 
-Oh Python, my dear serpentine friend, <br>
+**Oh Python, my dear serpentine friend,** <br>
 With your code, my woes you always mend. <br>
 Your syntax is clean, so easy to read, <br>
 In the world of coding, you take the lead. <br>
